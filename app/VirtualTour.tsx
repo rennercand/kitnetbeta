@@ -7,13 +7,22 @@ import * as THREE from "three";
 
 type MoveKey = "forward" | "back" | "left" | "right";
 type MoveState = Record<MoveKey, boolean>;
+type TourView = { name: string; position: readonly [number, number, number]; look: readonly [number, number, number] };
 
-const views = [
+const views: TourView[] = [
   { name: "Corredor", position: [0, 1.65, 8] as const, look: [0, 1.4, 2] as const },
   { name: "Entrada", position: [0, 1.65, 4.8] as const, look: [0, 1.3, 0] as const },
   { name: "Área de descanso", position: [0.8, 1.65, 0.6] as const, look: [-2.1, 1, -2.3] as const },
   { name: "Cozinha", position: [-0.2, 1.65, -0.4] as const, look: [2.5, 1, -2.2] as const },
   { name: "Banheiro", position: [0, 1.65, 1.2] as const, look: [2.4, 1.2, 2.6] as const },
+];
+
+const normalViews: TourView[] = [
+  { name: "Corredor", position: [0, 1.65, 8], look: [1.15, 1.35, 4] },
+  { name: "Entrada", position: [1.15, 1.65, 4.65], look: [0, 1.35, 1.2] },
+  { name: "Ambiente principal", position: [0, 1.65, 1.25], look: [0, 1.25, -2.35] },
+  { name: "Cozinha", position: [.45, 1.65, 2.3], look: [-1.05, .95, 3.65] },
+  { name: "Banheiro", position: [.95, 1.65, -3.65], look: [.15, 1.1, -5.2] },
 ];
 
 function Box({ position, size, color = "#f7f7f4" }: { position: [number, number, number]; size: [number, number, number]; color?: string }) {
@@ -61,8 +70,71 @@ function Kitchenette() {
   );
 }
 
+function FrontKitchen() {
+  return (
+    <group>
+      <Box position={[-.75, .86, 3.64]} size={[2.75, .12, .68]} color="#2f7c87" />
+      <Box position={[-1.92, .42, 3.64]} size={[.12, .86, .58]} color="#e8e8e5" />
+      <Box position={[.42, .42, 3.64]} size={[.12, .86, .58]} color="#e8e8e5" />
+      <Box position={[-.75, 1.3, 3.94]} size={[2.85, .82, .045]} color="#f4f3ef" />
+      <Box position={[-.55, .94, 3.58]} size={[.72, .055, .46]} color="#9ba3a2" />
+      <Box position={[-.52, 1.2, 3.72]} size={[.07, .55, .07]} color="#c7cdcc" />
+      <Box position={[-.36, 1.45, 3.72]} size={[.36, .06, .07]} color="#c7cdcc" />
+    </group>
+  );
+}
+
+function NormalKitnet() {
+  return (
+    <group>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 1]} receiveShadow>
+        <planeGeometry args={[5, 14]} />
+        <meshStandardMaterial color="#d4d2cc" roughness={.92} />
+      </mesh>
+      {Array.from({ length: 7 }, (_, index) => <Box key={index} position={[0, .008, -5 + index * 2]} size={[4.9, .012, .025]} color="#aeb0ae" />)}
+      <Box position={[-2.5, 1.4, 1]} size={[.14, 2.8, 14]} color="#ececea" />
+      <Box position={[2.5, 1.4, 1]} size={[.14, 2.8, 14]} color="#ececea" />
+      <Box position={[0, 2.82, 1]} size={[5, .08, 14]} color="#f4f4f1" />
+
+      <Box position={[-.8, 1.4, 4]} size={[3.4, 2.8, .14]} />
+      <Box position={[2.3, 1.4, 4]} size={[.4, 2.8, .14]} />
+      <Box position={[1.5, 2.55, 4]} size={[1.2, .5, .14]} />
+      <SlattedDoor position={[1.48, 0, 4.06]} rotation={[0, .82, 0]} />
+      <FrontKitchen />
+
+      <Box position={[-1.1, 1.4, -3.25]} size={[2.8, 2.8, .14]} />
+      <Box position={[2, 1.4, -3.25]} size={[1, 2.8, .14]} />
+      <Box position={[.9, 2.55, -3.25]} size={[1.2, .5, .14]} />
+      <group position={[.32, 0, -3.18]} rotation={[0, -.72, 0]}>
+        <Box position={[.55, 1.35, 0]} size={[1.08, 2.7, .08]} color="#f3f3f0" />
+        <Box position={[.95, 1.35, -.09]} size={[.06, .06, .12]} color="#353736" />
+      </group>
+
+      <Box position={[-1.55, .28, -.8]} size={[1.45, .54, 2.05]} color="#646866" />
+      <Box position={[-1.55, .62, -.8]} size={[1.34, .17, 1.94]} color="#f3f2ee" />
+
+      <Box position={[0, 1.4, -6]} size={[5, 2.8, .14]} />
+      <BarredWindow position={[-.75, 1.72, -5.91]} />
+      <Box position={[1.45, .34, -4.45]} size={[.58, .68, .72]} color="#f0f0ed" />
+      <Box position={[1.45, .76, -4.42]} size={[.62, .18, .76]} color="#f7f7f4" />
+      <Box position={[-.25, .84, -3.72]} size={[1.45, .16, .62]} color="#f6f6f3" />
+      <Box position={[-.25, 1.42, -3.96]} size={[1.25, .92, .05]} color="#cfd4d3" />
+      <Box position={[-1.85, 1.35, -5.35]} size={[.08, 2.55, 1.15]} color="#d8d8d4" />
+      <Box position={[-1.62, 2.15, -5.7]} size={[.08, .55, .08]} color="#aeb5b3" />
+      <Box position={[-1.45, 2.38, -5.7]} size={[.36, .06, .08]} color="#aeb5b3" />
+
+      {normalViews.slice(2).map((view) => (
+        <Html key={view.name} position={[view.look[0], 1.95, view.look[2]]} center distanceFactor={8}>
+          <span className="tour-hotspot">{view.name}</span>
+        </Html>
+      ))}
+    </group>
+  );
+}
+
 function Apartment({ variant }: { variant: "kitnet" | "loft" }) {
   const loft = variant === "loft";
+  if (!loft) return <NormalKitnet />;
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 1]} receiveShadow>
@@ -114,7 +186,7 @@ function Apartment({ variant }: { variant: "kitnet" | "loft" }) {
   );
 }
 
-function CameraRig({ movement, guided, selected }: { movement: React.RefObject<MoveState>; guided: boolean; selected: number }) {
+function CameraRig({ movement, guided, selected, viewSet }: { movement: React.RefObject<MoveState>; guided: boolean; selected: number; viewSet: TourView[] }) {
   const { camera, gl } = useThree();
   const target = useMemo(() => new THREE.Vector3(), []);
   const look = useMemo(() => new THREE.Vector3(), []);
@@ -129,12 +201,12 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
   const wasGuided = useRef(guided);
 
   useEffect(() => {
-    camera.position.set(...views[0].position);
-    camera.lookAt(...views[0].look);
+    camera.position.set(...viewSet[0].position);
+    camera.lookAt(...viewSet[0].look);
     euler.setFromQuaternion(camera.quaternion, "YXZ");
     yaw.current = euler.y;
     pitch.current = euler.x;
-  }, [camera, euler]);
+  }, [camera, euler, viewSet]);
 
   useEffect(() => {
     const element = gl.domElement;
@@ -175,7 +247,7 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
 
   useFrame((_, delta) => {
     if (guided) {
-      const view = views[selected];
+      const view = viewSet[selected];
       target.set(...view.position);
       look.set(...view.look);
       camera.position.lerp(target, 1 - Math.exp(-delta * 2.4));
@@ -207,7 +279,8 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
     if (desiredVelocity.lengthSq() > 0) desiredVelocity.normalize().multiplyScalar(2.25);
     velocity.lerp(desiredVelocity, 1 - Math.exp(-delta * 11));
     camera.position.addScaledVector(velocity, delta);
-    camera.position.x = THREE.MathUtils.clamp(camera.position.x, -3, 3);
+    const horizontalLimit = viewSet === normalViews ? 2.28 : 3;
+    camera.position.x = THREE.MathUtils.clamp(camera.position.x, -horizontalLimit, horizontalLimit);
     camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5.5, 9.5);
     camera.position.y = 1.65;
   });
@@ -220,6 +293,7 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
   const [guided, setGuided] = useState(true);
   const [selected, setSelected] = useState(0);
   const movement = useRef<MoveState>({ forward: false, back: false, left: false, right: false });
+  const activeViews = propertyType === "kitnet" ? normalViews : views;
 
   useEffect(() => {
     const map: Record<string, MoveKey> = { w: "forward", arrowup: "forward", s: "back", arrowdown: "back", a: "left", arrowleft: "left", d: "right", arrowright: "right" };
@@ -236,9 +310,9 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
 
   useEffect(() => {
     if (!guided) return;
-    const timer = window.setInterval(() => setSelected((value) => (value + 1) % views.length), 4200);
+    const timer = window.setInterval(() => setSelected((value) => (value + 1) % activeViews.length), 4200);
     return () => window.clearInterval(timer);
-  }, [guided]);
+  }, [guided, activeViews]);
 
   const hold = (key: MoveKey, active: boolean) => { movement.current[key] = active; };
 
@@ -253,13 +327,13 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
           <pointLight position={[0, 2.35, -4]} intensity={7} distance={9} />
           <SoftShadows size={15} samples={8} focus={0.7} />
           <Apartment variant={propertyType} />
-          <CameraRig movement={movement} guided={guided} selected={selected} />
+          <CameraRig movement={movement} guided={guided} selected={selected} viewSet={activeViews} />
         </Canvas>
       </Suspense>
       {mode === "hero" && (
         <div className="tour-type-switch" aria-label="Escolha o tipo de imóvel">
-          <button className={propertyType === "kitnet" ? "active" : ""} aria-pressed={propertyType === "kitnet"} onClick={() => setPropertyType("kitnet")}>Kitnet normal</button>
-          <button className={propertyType === "loft" ? "active" : ""} aria-pressed={propertyType === "loft"} onClick={() => setPropertyType("loft")}>Loft</button>
+          <button className={propertyType === "kitnet" ? "active" : ""} aria-pressed={propertyType === "kitnet"} onClick={() => { setPropertyType("kitnet"); setSelected(0); }}>Kitnet normal</button>
+          <button className={propertyType === "loft" ? "active" : ""} aria-pressed={propertyType === "loft"} onClick={() => { setPropertyType("loft"); setSelected(0); }}>Loft</button>
         </div>
       )}
       {mode === "hero" && !interactive && (
@@ -275,7 +349,7 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
             {mode === "hero" && <button onClick={() => { setInteractive(false); setGuided(true); }}>Sair do tour</button>}
           </div>
           <div className="tour-views">
-            {views.map((view, index) => <button className={selected === index ? "active" : ""} key={view.name} onClick={() => { setGuided(true); setSelected(index); }}>{view.name}</button>)}
+            {activeViews.map((view, index) => <button className={selected === index ? "active" : ""} key={view.name} onClick={() => { setGuided(true); setSelected(index); }}>{view.name}</button>)}
           </div>
           {!guided && (
             <div className="mobile-pad" aria-label="Controles de movimento">
