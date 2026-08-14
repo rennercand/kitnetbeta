@@ -168,7 +168,7 @@ footer .brand { color:var(--ink); font-size:14px; }
 }
 
 /* Entrada monocromática e futurista */
-.new-hero { min-height:calc(100svh - 86px); padding:0; display:grid; place-items:center; background:#f2f2ef; isolation:isolate; }
+.new-hero { min-height:100svh; padding:0; display:grid; place-items:center; background:#f2f2ef; isolation:isolate; }
 .new-hero:after { width:1px; height:46%; left:50%; right:auto; top:0; border:0; border-radius:0; background:linear-gradient(#a9aaa8,transparent); box-shadow:none; animation:scan-line 5s ease-in-out infinite; }
 .new-hero .blueprint { opacity:.2; background-size:72px 72px; mask-image:radial-gradient(circle at center,#000,transparent 72%); animation:grid-breathe 8s ease-in-out infinite; }
 .new-hero .blueprint i { display:none; }
@@ -200,5 +200,5 @@ footer .brand { color:var(--ink); font-size:14px; }
 @keyframes scan-line { 50%{height:68%;opacity:.45} }
 @keyframes scroll-pulse { 50%{transform:scaleX(.45);opacity:.4} }
 @media (max-width:700px){
-  .new-hero{min-height:calc(100svh - 72px)}.hero-center{transform:translateY(-4vh)}.hero-center .hero-kicker{font-size:9px;letter-spacing:.22em}.new-hero .hero-center h1{font-size:clamp(55px,17vw,84px)}.entrance-preview{width:100%;height:60%;bottom:-3%}.entrance-door{width:35%;height:67%}.entrance-wall{width:33%}.new-hero .hero-actions{margin-top:34px}.scroll-cue{bottom:14px}.entrance-preview small{display:none}
+  .new-hero{min-height:100svh}.hero-center{transform:translateY(-4vh)}.hero-center .hero-kicker{font-size:9px;letter-spacing:.22em}.new-hero .hero-center h1{font-size:clamp(55px,17vw,84px)}.entrance-preview{width:100%;height:60%;bottom:-3%}.entrance-door{width:35%;height:67%}.entrance-wall{width:33%}.new-hero .hero-actions{margin-top:34px}.scroll-cue{bottom:14px}.entrance-preview small{display:none}.animated-nav{max-width:calc(100vw - 20px)}.animated-nav a{padding-left:5px;padding-right:5px}.animated-nav span{font-size:10px}
 }

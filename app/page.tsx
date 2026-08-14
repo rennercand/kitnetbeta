@@ -1,5 +1,6 @@
 import VirtualTour from "./VirtualTour";
 import { getWhatsappLink, siteConfig } from "./siteConfig";
+import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
 
 const units = ["Kitnet 01", "Kitnet 02", "Kitnet 03"];
 
@@ -11,11 +12,7 @@ function ContactLink({ className = "button" }: { className?: string }) {
 export default function Home() {
   return (
     <main>
-      <header className="topbar">
-        <a className="brand" href="#inicio"><span className="brand-mark">KB</span><span>Kitnets Beta</span></a>
-        <nav><a href="#unidades">Unidades</a><a href="#tour">Passeio 3D</a><a href="#localizacao">Localização</a></nav>
-        <ContactLink className="button button-small" />
-      </header>
+      <AnimatedNavFramer />
 
       <section className="new-hero" id="inicio">
         <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
