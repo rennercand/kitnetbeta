@@ -108,8 +108,12 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
 
 export default function VirtualTour({ mode = "default" }: { mode?: "default" | "hero" }) {
   const [interactive, setInteractive] = useState(mode === "default");
+  const [propertyType, setPropertyType] = useState<"kitnet" | "loft">("kitnet");
+  const [videoPlaying, setVideoPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
   const [guided, setGuided] = useState(true);
   const [selected, setSelected] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const movement = useRef<MoveState>({ forward: false, back: false, left: false, right: false });
 
   useEffect(() => {
@@ -132,37 +136,82 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
   }, [guided]);
 
   const hold = (key: MoveKey, active: boolean) => { movement.current[key] = active; };
+  const toggleVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) void video.play(); else video.pause();
+  };
+  const seekVideo = (ratio: number) => {
+    const video = videoRef.current;
+    if (!video || !Number.isFinite(video.duration)) return;
+    video.currentTime = video.duration * ratio;
+    void video.play();
+  };
 
   return (
-    <div className={`tour-shell ${mode === "hero" ? "hero-tour-shell" : ""} ${interactive ? "is-active" : ""}`} id={mode === "hero" ? "tour" : "tour-viewer"}>
-      <Suspense fallback={<div className="tour-loading">Preparando sua visita virtual…</div>}>
-        <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 8], fov: 62 }}>
-          <color attach="background" args={[mode === "hero" ? "#191b1b" : "#efefec"]} />
-          <ambientLight intensity={1.2} />
-          <directionalLight position={[-3, 7, -5]} intensity={2} castShadow />
-          <pointLight position={[0, 2.5, 0]} intensity={8} distance={13} />
-          <SoftShadows size={15} samples={8} focus={0.7} />
-          <Apartment />
-          <CameraRig movement={movement} guided={guided} selected={selected} />
-          {!guided && <OrbitControls enablePan={false} enableZoom={false} target={[0, 1.5, 0]} />}
-        </Canvas>
-      </Suspense>
+    <div className={`tour-shell ${mode === "hero" ? "hero-tour-shell" : ""} ${propertyType === "kitnet" ? "is-video-tour" : "is-model-tour"} ${interactive ? "is-active" : ""}`} id={mode === "hero" ? "tour" : "tour-viewer"}>
+      {propertyType === "kitnet" ? (
+        <video
+          ref={videoRef}
+          className="tour-video"
+          src="/media/tour-real.mp4"
+          autoPlay
+          muted={muted}
+          loop
+          playsInline
+          preload="auto"
+          onPlay={() => setVideoPlaying(true)}
+          onPause={() => setVideoPlaying(false)}
+        />
+      ) : (
+        <Suspense fallback={<div className="tour-loading">Preparando sua visita virtual…</div>}>
+          <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 8], fov: 62 }}>
+            <color attach="background" args={[mode === "hero" ? "#191b1b" : "#efefec"]} />
+            <ambientLight intensity={1.2} />
+            <directionalLight position={[-3, 7, -5]} intensity={2} castShadow />
+            <pointLight position={[0, 2.5, 0]} intensity={8} distance={13} />
+            <SoftShadows size={15} samples={8} focus={0.7} />
+            <Apartment />
+            <CameraRig movement={movement} guided={guided} selected={selected} />
+            {!guided && <OrbitControls enablePan={false} enableZoom={false} target={[0, 1.5, 0]} />}
+          </Canvas>
+        </Suspense>
+      )}
+      {mode === "hero" && (
+        <div className="tour-type-switch" aria-label="Escolha o tipo de imóvel">
+          <button className={propertyType === "kitnet" ? "active" : ""} aria-pressed={propertyType === "kitnet"} onClick={() => setPropertyType("kitnet")}>Kitnet normal</button>
+          <button className={propertyType === "loft" ? "active" : ""} aria-pressed={propertyType === "loft"} onClick={() => setPropertyType("loft")}>Loft</button>
+        </div>
+      )}
       {mode === "hero" && !interactive && (
-        <button className="hero-tour-enter" onClick={() => { setInteractive(true); setGuided(false); }} aria-label="Entrar no modo tour 3D">
-          <span>Clique para entrar no tour 3D ↗</span>
+        <button className="hero-tour-enter" onClick={() => { setInteractive(true); if (propertyType === "kitnet") void videoRef.current?.play(); else setGuided(false); }} aria-label="Entrar no modo tour imersivo">
+          <span>Clique para entrar no tour ↗</span>
         </button>
       )}
       {interactive && (
         <>
           <div className="tour-toolbar">
-            <button onClick={() => setGuided((value) => !value)}>{guided ? "Explorar livremente" : "Iniciar tour guiado"}</button>
+            {propertyType === "kitnet" ? (
+              <>
+                <button onClick={toggleVideo}>{videoPlaying ? "Pausar" : "Continuar"}</button>
+                <button onClick={() => setMuted((value) => !value)}>{muted ? "Ativar som" : "Silenciar"}</button>
+              </>
+            ) : <button onClick={() => setGuided((value) => !value)}>{guided ? "Explorar livremente" : "Iniciar tour guiado"}</button>}
             <button onClick={() => document.getElementById(mode === "hero" ? "tour" : "tour-viewer")?.requestFullscreen?.()}>Tela cheia</button>
             {mode === "hero" && <button onClick={() => { setInteractive(false); setGuided(true); }}>Sair do tour</button>}
           </div>
-          <div className="tour-views">
-            {views.map((view, index) => <button className={selected === index ? "active" : ""} key={view.name} onClick={() => { setGuided(true); setSelected(index); }}>{view.name}</button>)}
-          </div>
-          {!guided && (
+          {propertyType === "kitnet" ? (
+            <div className="tour-views video-chapters">
+              <button onClick={() => seekVideo(0)}>Entrada</button>
+              <button onClick={() => seekVideo(.34)}>Interior</button>
+              <button onClick={() => seekVideo(.68)}>Cozinha</button>
+            </div>
+          ) : (
+            <div className="tour-views">
+              {views.map((view, index) => <button className={selected === index ? "active" : ""} key={view.name} onClick={() => { setGuided(true); setSelected(index); }}>{view.name}</button>)}
+            </div>
+          )}
+          {propertyType === "loft" && !guided && (
             <div className="mobile-pad" aria-label="Controles de movimento">
               <button onPointerDown={() => hold("forward", true)} onPointerUp={() => hold("forward", false)}>↑</button>
               <button onPointerDown={() => hold("left", true)} onPointerUp={() => hold("left", false)}>←</button>
@@ -170,7 +219,7 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
               <button onPointerDown={() => hold("right", true)} onPointerUp={() => hold("right", false)}>→</button>
             </div>
           )}
-          <p className="tour-note">Passeio demonstrativo. O modelo será atualizado com fotos e medidas reais.</p>
+          <p className="tour-note">{propertyType === "kitnet" ? "Tour em vídeo real da kitnet." : "Visualização 3D conceitual do loft."}</p>
         </>
       )}
     </div>

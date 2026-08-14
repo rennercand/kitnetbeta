@@ -40,15 +40,9 @@ export default function Home() {
           <img src="/media/kitnet-entrada.jpeg" alt="Interior de uma kitnet visto em direção ao acesso externo" />
           <figcaption><span>03</span> Entrada e cozinha</figcaption>
         </figure>
-        <figure className="gallery-item gallery-video">
-          <video controls playsInline preload="metadata" aria-label="Vídeo real das Kitnets Beta">
-            <source src="/media/tour-real.mp4" type="video/mp4" />
-          </video>
-          <figcaption><span>04</span> Vídeo do espaço</figcaption>
-        </figure>
         <figure className="gallery-item gallery-wide">
-          <img src="/media/fachada-projeto.jpeg" alt="Vista do projeto da fachada das Kitnets Beta" />
-          <figcaption><span>05</span> Vista do projeto</figcaption>
+          <img src="/media/fachada-projeto-hd.png" alt="Vista do projeto da fachada das Kitnets Beta" />
+          <figcaption><span>04</span> Vista do projeto</figcaption>
         </figure>
       </section>
 
