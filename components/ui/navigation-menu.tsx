@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { name: "Início", href: "#inicio" },
   { name: "Unidades", href: "#unidades" },
-  { name: "Tour 3D", href: "#tour" },
+  { name: "Tour 3D", href: "#inicio" },
   { name: "Localização", href: "#localizacao" },
 ];
 

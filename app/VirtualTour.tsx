@@ -106,8 +106,8 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
   return null;
 }
 
-export default function VirtualTour() {
-  const [started, setStarted] = useState(true);
+export default function VirtualTour({ mode = "default" }: { mode?: "default" | "hero" }) {
+  const [interactive, setInteractive] = useState(mode === "default");
   const [guided, setGuided] = useState(true);
   const [selected, setSelected] = useState(0);
   const movement = useRef<MoveState>({ forward: false, back: false, left: false, right: false });
@@ -126,39 +126,38 @@ export default function VirtualTour() {
   }, []);
 
   useEffect(() => {
-    if (!guided || !started) return;
+    if (!guided) return;
     const timer = window.setInterval(() => setSelected((value) => (value + 1) % views.length), 4200);
     return () => window.clearInterval(timer);
-  }, [guided, started]);
+  }, [guided]);
 
   const hold = (key: MoveKey, active: boolean) => { movement.current[key] = active; };
 
   return (
-    <div className="tour-shell" id="tour-viewer">
-      {!started ? (
-        <div className="tour-intro">
-          <span className="eyebrow">Visita virtual</span>
-          <h3>Entre na maquete demonstrativa</h3>
-          <p>Explore o corredor e o interior de uma unidade conceitual antes das fotos reais chegarem.</p>
-          <button className="button" onClick={() => setStarted(true)}>Iniciar passeio 3D</button>
-        </div>
-      ) : (
+    <div className={`tour-shell ${mode === "hero" ? "hero-tour-shell" : ""} ${interactive ? "is-active" : ""}`} id={mode === "hero" ? "tour" : "tour-viewer"}>
+      <Suspense fallback={<div className="tour-loading">Preparando sua visita virtual…</div>}>
+        <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 8], fov: 62 }}>
+          <color attach="background" args={[mode === "hero" ? "#191b1b" : "#efefec"]} />
+          <ambientLight intensity={1.2} />
+          <directionalLight position={[-3, 7, -5]} intensity={2} castShadow />
+          <pointLight position={[0, 2.5, 0]} intensity={8} distance={13} />
+          <SoftShadows size={15} samples={8} focus={0.7} />
+          <Apartment />
+          <CameraRig movement={movement} guided={guided} selected={selected} />
+          {!guided && <OrbitControls enablePan={false} enableZoom={false} target={[0, 1.5, 0]} />}
+        </Canvas>
+      </Suspense>
+      {mode === "hero" && !interactive && (
+        <button className="hero-tour-enter" onClick={() => { setInteractive(true); setGuided(false); }} aria-label="Entrar no modo tour 3D">
+          <span>Clique para entrar no tour 3D ↗</span>
+        </button>
+      )}
+      {interactive && (
         <>
-          <Suspense fallback={<div className="tour-loading">Preparando sua visita virtual…</div>}>
-            <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.65, 8], fov: 62 }}>
-              <color attach="background" args={["#efefec"]} />
-              <ambientLight intensity={1.2} />
-              <directionalLight position={[-3, 7, -5]} intensity={2} castShadow />
-              <pointLight position={[0, 2.5, 0]} intensity={8} distance={13} />
-              <SoftShadows size={15} samples={8} focus={0.7} />
-              <Apartment />
-              <CameraRig movement={movement} guided={guided} selected={selected} />
-              {!guided && <OrbitControls enablePan={false} enableZoom={false} target={[0, 1.5, 0]} />}
-            </Canvas>
-          </Suspense>
           <div className="tour-toolbar">
             <button onClick={() => setGuided((value) => !value)}>{guided ? "Explorar livremente" : "Iniciar tour guiado"}</button>
-            <button onClick={() => document.getElementById("tour-viewer")?.requestFullscreen?.()}>Tela cheia</button>
+            <button onClick={() => document.getElementById(mode === "hero" ? "tour" : "tour-viewer")?.requestFullscreen?.()}>Tela cheia</button>
+            {mode === "hero" && <button onClick={() => { setInteractive(false); setGuided(true); }}>Sair do tour</button>}
           </div>
           <div className="tour-views">
             {views.map((view, index) => <button className={selected === index ? "active" : ""} key={view.name} onClick={() => { setGuided(true); setSelected(index); }}>{view.name}</button>)}

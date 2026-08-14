@@ -14,18 +14,12 @@ export default function Home() {
     <main>
       <AnimatedNavFramer />
 
-      <section
-        className={`new-hero ${siteConfig.heroImage ? "has-facade" : "awaiting-facade"}`}
-        id="inicio"
-        style={siteConfig.heroImage ? { backgroundImage: `url(${siteConfig.heroImage})` } : undefined}
-      >
+      <section className="new-hero hero-tour-card" id="inicio">
         <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
-        <div className="facade-shade" aria-hidden="true" />
-        {!siteConfig.heroImage && <div className="facade-placeholder"><span>Foto frontal das kitnets</span><small>Pronta para receber a imagem real</small></div>}
+        <VirtualTour mode="hero" />
         <div className="hero-center">
-          <div className="hero-kicker">Jardim Conceição · São Roque</div>
+          <div className="hero-kicker">Explore por dentro</div>
           <h1>Kitnets<br/><em>do seu jeito.</em></h1>
-          <div className="hero-actions"><a className="button monochrome" href="#tour">Explorar em 3D <span>↗</span></a></div>
         </div>
         <a className="scroll-cue" href="#unidades" aria-label="Continuar para as unidades"><span>Role para explorar</span><i/></a>
       </section>
@@ -42,13 +36,6 @@ export default function Home() {
             <div className="unit-body"><p>A confirmar</p><h3>{unit}</h3><dl><div><dt>Valor</dt><dd>A confirmar</dd></div><div><dt>Medidas</dt><dd>A confirmar</dd></div><div><dt>Status</dt><dd>A confirmar</dd></div></dl></div>
           </article>
         ))}
-      </section>
-
-      <section className="tour-section" id="tour">
-        <div className="tour-stage">
-          <div className="tour-heading"><span className="eyebrow light">Experiência 3D</span><h2>Caminhe pela sua<br/>futura kitnet.</h2><p>Passe o mouse para ampliar e explorar.</p></div>
-          <VirtualTour />
-        </div>
       </section>
 
       <section className="owners-location" id="localizacao">
