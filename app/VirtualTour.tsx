@@ -107,7 +107,7 @@ function CameraRig({ movement, guided, selected }: { movement: React.RefObject<M
 }
 
 export default function VirtualTour() {
-  const [started, setStarted] = useState(false);
+  const [started, setStarted] = useState(true);
   const [guided, setGuided] = useState(true);
   const [selected, setSelected] = useState(0);
   const movement = useRef<MoveState>({ forward: false, back: false, left: false, right: false });

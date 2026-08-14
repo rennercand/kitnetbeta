@@ -14,16 +14,14 @@ export default function Home() {
     <main>
       <AnimatedNavFramer />
 
-      <section className="new-hero" id="inicio">
+      <section
+        className={`new-hero ${siteConfig.heroImage ? "has-facade" : "awaiting-facade"}`}
+        id="inicio"
+        style={siteConfig.heroImage ? { backgroundImage: `url(${siteConfig.heroImage})` } : undefined}
+      >
         <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
-        <div className="entrance-preview" aria-label="Representação demonstrativa da entrada de uma kitnet">
-          <div className="entrance-ceiling" />
-          <div className="entrance-wall left" />
-          <div className="entrance-door"><span>KB</span></div>
-          <div className="entrance-wall right" />
-          <div className="entrance-floor"><i/><i/><i/><i/></div>
-          <small>Entrada demonstrativa</small>
-        </div>
+        <div className="facade-shade" aria-hidden="true" />
+        {!siteConfig.heroImage && <div className="facade-placeholder"><span>Foto frontal das kitnets</span><small>Pronta para receber a imagem real</small></div>}
         <div className="hero-center">
           <div className="hero-kicker">Jardim Conceição · São Roque</div>
           <h1>Kitnets<br/><em>do seu jeito.</em></h1>
@@ -47,8 +45,10 @@ export default function Home() {
       </section>
 
       <section className="tour-section" id="tour">
-        <div className="tour-heading"><span className="eyebrow light">Experiência 3D</span><h2>Caminhe pela sua<br/>futura kitnet.</h2><p>Use o tour guiado ou explore livremente com teclado, mouse e controles na tela.</p></div>
-        <VirtualTour />
+        <div className="tour-stage">
+          <div className="tour-heading"><span className="eyebrow light">Experiência 3D</span><h2>Caminhe pela sua<br/>futura kitnet.</h2><p>Passe o mouse para ampliar e explorar.</p></div>
+          <VirtualTour />
+        </div>
       </section>
 
       <section className="owners-location" id="localizacao">

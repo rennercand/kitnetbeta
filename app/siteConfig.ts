@@ -2,6 +2,8 @@ export const siteConfig = {
   name: "Kitnets Beta",
   location: "Jardim Conceição, São Roque – SP",
   owners: ["Roni Fagundes", "Barbara Aline"],
+  /** Substitua pelo caminho da foto real, por exemplo: /fachada.jpg */
+  heroImage: "",
   phone: "",
   whatsappMessage:
     "Olá! Vi o site da Kitnets Beta e gostaria de consultar a disponibilidade.",
