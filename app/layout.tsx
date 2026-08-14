@@ -7,18 +7,18 @@ const serif = Playfair_Display({ variable: "--font-serif", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Kitnets Beta | Jardim Conceição, São Roque",
-  description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
+  description: "Kitnets do seu jeito no Jardim Conceição, em São Roque.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
     title: "Kitnets Beta",
-    description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
+    description: "Kitnets do seu jeito no Jardim Conceição, em São Roque.",
     type: "website",
     locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kitnets Beta",
-    description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
+    description: "Kitnets do seu jeito no Jardim Conceição, em São Roque.",
   },
 };
 

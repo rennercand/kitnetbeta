@@ -19,11 +19,20 @@ export default function Home() {
 
       <section className="new-hero" id="inicio">
         <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
-        <div className="hero-kicker">Jardim Conceição · São Roque</div>
-        <h1>Seu espaço.<br/><em>Do seu jeito.</em></h1>
-        <p>Kitnets práticas para morar com tranquilidade.</p>
-        <div className="hero-actions"><a className="button" href="#tour">Explorar em 3D</a><a className="text-link" href="#unidades">Conhecer as unidades →</a></div>
-        <div className="hero-meta"><span>Atendimento direto</span><span>Visitas mediante agendamento</span><span>Informações transparentes</span></div>
+        <div className="entrance-preview" aria-label="Representação demonstrativa da entrada de uma kitnet">
+          <div className="entrance-ceiling" />
+          <div className="entrance-wall left" />
+          <div className="entrance-door"><span>KB</span></div>
+          <div className="entrance-wall right" />
+          <div className="entrance-floor"><i/><i/><i/><i/></div>
+          <small>Entrada demonstrativa</small>
+        </div>
+        <div className="hero-center">
+          <div className="hero-kicker">Jardim Conceição · São Roque</div>
+          <h1>Kitnets<br/><em>do seu jeito.</em></h1>
+          <div className="hero-actions"><a className="button monochrome" href="#tour">Explorar em 3D <span>↗</span></a></div>
+        </div>
+        <a className="scroll-cue" href="#unidades" aria-label="Continuar para as unidades"><span>Role para explorar</span><i/></a>
       </section>
 
       <section className="intro" id="unidades">
