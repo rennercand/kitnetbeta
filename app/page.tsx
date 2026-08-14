@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main>
       <header className="topbar">
-        <a className="brand" href="#inicio"><span className="brand-mark">JC</span><span>Kitnets Jardim Conceição</span></a>
+        <a className="brand" href="#inicio"><span className="brand-mark">KB</span><span>Kitnets Beta</span></a>
         <nav><a href="#unidades">Unidades</a><a href="#tour">Passeio 3D</a><a href="#localizacao">Localização</a></nav>
         <ContactLink className="button button-small" />
       </header>
@@ -21,7 +21,7 @@ export default function Home() {
         <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
         <div className="hero-kicker">Jardim Conceição · São Roque</div>
         <h1>Seu espaço.<br/><em>Do seu jeito.</em></h1>
-        <p>Kitnets práticas para morar com tranquilidade, com atendimento direto de Roni Fagundes e Barbara Aline.</p>
+        <p>Kitnets práticas para morar com tranquilidade.</p>
         <div className="hero-actions"><a className="button" href="#tour">Explorar em 3D</a><a className="text-link" href="#unidades">Conhecer as unidades →</a></div>
         <div className="hero-meta"><span>Atendimento direto</span><span>Visitas mediante agendamento</span><span>Informações transparentes</span></div>
       </section>
@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       <section className="contact" id="contato"><div><span className="eyebrow light">Próximo passo</span><h2>Quer conhecer<br/>pessoalmente?</h2></div><div className="contact-action"><p>Assim que o telefone for cadastrado, o botão abrirá uma conversa direta no WhatsApp.</p><ContactLink className="button button-light" /></div></section>
-      <footer><a className="brand" href="#inicio"><span className="brand-mark">JC</span><span>{siteConfig.name}</span></a><p>{siteConfig.location}</p><a href="#inicio">Voltar ao topo ↑</a></footer>
+      <footer><a className="brand" href="#inicio"><span className="brand-mark">KB</span><span>{siteConfig.name}</span></a><p>{siteConfig.location}</p><a href="#inicio">Voltar ao topo ↑</a></footer>
     </main>
   );
 }

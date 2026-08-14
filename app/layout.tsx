@@ -6,21 +6,19 @@ const sans = DM_Sans({ variable: "--font-sans", subsets: ["latin"] });
 const serif = Playfair_Display({ variable: "--font-serif", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kitnets Jardim Conceição | São Roque",
-  description: "Kitnets no Jardim Conceição, em São Roque, com atendimento direto de Roni Fagundes e Barbara Aline.",
+  title: "Kitnets Beta | Jardim Conceição, São Roque",
+  description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: "Kitnets Jardim Conceição",
-    description: "Seu espaço no Jardim Conceição, em São Roque.",
+    title: "Kitnets Beta",
+    description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
     type: "website",
     locale: "pt_BR",
-    images: [{ url: "/og.png", width: 1731, height: 909, alt: "Kitnets Jardim Conceição" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kitnets Jardim Conceição",
-    description: "Seu espaço no Jardim Conceição, em São Roque.",
-    images: ["/og.png"],
+    title: "Kitnets Beta",
+    description: "Kitnets práticas para morar com tranquilidade no Jardim Conceição, em São Roque.",
   },
 };
 
