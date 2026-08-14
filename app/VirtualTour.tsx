@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Html, OrbitControls, SoftShadows } from "@react-three/drei";
+import { Html, SoftShadows } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
@@ -115,36 +115,98 @@ function Apartment({ variant }: { variant: "kitnet" | "loft" }) {
 }
 
 function CameraRig({ movement, guided, selected }: { movement: React.RefObject<MoveState>; guided: boolean; selected: number }) {
-  const { camera } = useThree();
+  const { camera, gl } = useThree();
   const target = useMemo(() => new THREE.Vector3(), []);
   const look = useMemo(() => new THREE.Vector3(), []);
   const direction = useMemo(() => new THREE.Vector3(), []);
   const right = useMemo(() => new THREE.Vector3(), []);
+  const desiredVelocity = useMemo(() => new THREE.Vector3(), []);
+  const velocity = useMemo(() => new THREE.Vector3(), []);
+  const guideCamera = useMemo(() => new THREE.Object3D(), []);
+  const euler = useMemo(() => new THREE.Euler(0, 0, 0, "YXZ"), []);
+  const yaw = useRef(0);
+  const pitch = useRef(0);
+  const wasGuided = useRef(guided);
 
   useEffect(() => {
     camera.position.set(...views[0].position);
-  }, [camera]);
+    camera.lookAt(...views[0].look);
+    euler.setFromQuaternion(camera.quaternion, "YXZ");
+    yaw.current = euler.y;
+    pitch.current = euler.x;
+  }, [camera, euler]);
+
+  useEffect(() => {
+    const element = gl.domElement;
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    const down = (event: PointerEvent) => {
+      if (guided) return;
+      dragging = true;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      element.setPointerCapture?.(event.pointerId);
+    };
+    const move = (event: PointerEvent) => {
+      if (!dragging || guided) return;
+      const deltaX = event.clientX - lastX;
+      const deltaY = event.clientY - lastY;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      yaw.current -= deltaX * .004;
+      pitch.current = THREE.MathUtils.clamp(pitch.current - deltaY * .004, -1.18, 1.18);
+    };
+    const up = (event: PointerEvent) => {
+      dragging = false;
+      if (element.hasPointerCapture?.(event.pointerId)) element.releasePointerCapture(event.pointerId);
+    };
+    element.addEventListener("pointerdown", down);
+    element.addEventListener("pointermove", move);
+    element.addEventListener("pointerup", up);
+    element.addEventListener("pointercancel", up);
+    return () => {
+      element.removeEventListener("pointerdown", down);
+      element.removeEventListener("pointermove", move);
+      element.removeEventListener("pointerup", up);
+      element.removeEventListener("pointercancel", up);
+    };
+  }, [gl, guided]);
 
   useFrame((_, delta) => {
     if (guided) {
       const view = views[selected];
       target.set(...view.position);
       look.set(...view.look);
-      camera.position.lerp(target, Math.min(1, delta * 1.6));
-      camera.lookAt(look);
+      camera.position.lerp(target, 1 - Math.exp(-delta * 2.4));
+      guideCamera.position.copy(camera.position);
+      guideCamera.lookAt(look);
+      camera.quaternion.slerp(guideCamera.quaternion, 1 - Math.exp(-delta * 4.5));
+      velocity.set(0, 0, 0);
+      wasGuided.current = true;
       return;
     }
+    if (wasGuided.current) {
+      euler.setFromQuaternion(camera.quaternion, "YXZ");
+      yaw.current = euler.y;
+      pitch.current = euler.x;
+      wasGuided.current = false;
+    }
+    camera.rotation.set(pitch.current, yaw.current, 0, "YXZ");
     const state = movement.current;
     if (!state) return;
-    camera.getWorldDirection(direction);
+    direction.set(0, 0, -1).applyEuler(camera.rotation);
     direction.y = 0;
     direction.normalize();
     right.crossVectors(direction, camera.up).normalize();
-    const speed = delta * 2.4;
-    if (state.forward) camera.position.addScaledVector(direction, speed);
-    if (state.back) camera.position.addScaledVector(direction, -speed);
-    if (state.left) camera.position.addScaledVector(right, -speed);
-    if (state.right) camera.position.addScaledVector(right, speed);
+    desiredVelocity.set(0, 0, 0);
+    if (state.forward) desiredVelocity.add(direction);
+    if (state.back) desiredVelocity.sub(direction);
+    if (state.left) desiredVelocity.sub(right);
+    if (state.right) desiredVelocity.add(right);
+    if (desiredVelocity.lengthSq() > 0) desiredVelocity.normalize().multiplyScalar(2.25);
+    velocity.lerp(desiredVelocity, 1 - Math.exp(-delta * 11));
+    camera.position.addScaledVector(velocity, delta);
     camera.position.x = THREE.MathUtils.clamp(camera.position.x, -3, 3);
     camera.position.z = THREE.MathUtils.clamp(camera.position.z, -5.5, 9.5);
     camera.position.y = 1.65;
@@ -192,7 +254,6 @@ export default function VirtualTour({ mode = "default" }: { mode?: "default" | "
           <SoftShadows size={15} samples={8} focus={0.7} />
           <Apartment variant={propertyType} />
           <CameraRig movement={movement} guided={guided} selected={selected} />
-          {!guided && <OrbitControls enablePan={false} enableZoom={false} target={[0, 1.5, 0]} />}
         </Canvas>
       </Suspense>
       {mode === "hero" && (
