@@ -6,20 +6,20 @@ const sans = DM_Sans({ variable: "--font-sans", subsets: ["latin"] });
 const serif = Playfair_Display({ variable: "--font-serif", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Beta Kitnets | Direto com o proprietário",
-  description: "Kitnets práticas, bem cuidadas e com negociação direta com o proprietário.",
+  title: "Kitnets Jardim Conceição | São Roque",
+  description: "Kitnets no Jardim Conceição, em São Roque, com atendimento direto de Roni Fagundes e Barbara Aline.",
   icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: "Beta Kitnets",
-    description: "Seu espaço. Do seu jeito. Aluguel direto com o proprietário.",
+    title: "Kitnets Jardim Conceição",
+    description: "Seu espaço no Jardim Conceição, em São Roque.",
     type: "website",
     locale: "pt_BR",
-    images: [{ url: "/og.png", width: 1731, height: 909, alt: "Beta Kitnets" }],
+    images: [{ url: "/og.png", width: 1731, height: 909, alt: "Kitnets Jardim Conceição" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Beta Kitnets",
-    description: "Seu espaço. Do seu jeito. Aluguel direto com o proprietário.",
+    title: "Kitnets Jardim Conceição",
+    description: "Seu espaço no Jardim Conceição, em São Roque.",
     images: ["/og.png"],
   },
 };

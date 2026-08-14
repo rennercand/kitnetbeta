@@ -100,3 +100,69 @@ footer .brand { color:var(--ink); font-size:14px; }
   .contact { padding:70px 7vw; }
   footer { gap:24px; flex-direction:column; text-align:center; }
 }
+
+/* Jardim Conceição — base demonstrativa */
+.new-hero { min-height:calc(100vh - 86px); position:relative; overflow:hidden; padding:10vh 7vw 6vh; background:#f7f7f4; display:flex; flex-direction:column; justify-content:center; }
+.new-hero:after { content:""; position:absolute; width:42vw; height:42vw; right:-12vw; top:2vh; border:1px solid #c9cac8; border-radius:50%; box-shadow:0 0 0 7vw rgba(52,54,56,.025),0 0 0 14vw rgba(52,54,56,.018); animation:hero-pulse 8s ease-in-out infinite; }
+.blueprint { position:absolute; inset:0; opacity:.32; pointer-events:none; background-image:linear-gradient(#d7d8d6 1px,transparent 1px),linear-gradient(90deg,#d7d8d6 1px,transparent 1px); background-size:55px 55px; mask-image:linear-gradient(90deg,#000 0%,transparent 75%); }
+.blueprint i { position:absolute; border:1px solid #9fa19f; animation:blueprint-drift 10s ease-in-out infinite; }
+.blueprint i:nth-child(1){width:34%;height:24%;left:4%;top:16%}.blueprint i:nth-child(2){width:22%;height:34%;left:38%;top:47%;animation-delay:-3s}.blueprint i:nth-child(3){width:14%;height:18%;left:20%;top:64%;animation-delay:-6s}.blueprint i:nth-child(4){width:18%;height:12%;left:50%;top:20%;animation-delay:-8s}
+.hero-kicker { position:relative; z-index:1; color:#686b6e; text-transform:uppercase; letter-spacing:.2em; font-size:11px; font-weight:700; margin-bottom:28px; }
+.new-hero h1 { position:relative; z-index:1; font-size:clamp(68px,9.5vw,145px); line-height:.82; max-width:1050px; margin:0; color:#343638; }
+.new-hero h1 em { color:#74777a; font-weight:400; }
+.new-hero>p { position:relative; z-index:1; max-width:610px; margin:35px 0 25px; font-size:18px; line-height:1.7; color:#686b6e; }
+.new-hero .hero-actions,.new-hero .hero-meta { position:relative; z-index:1; }
+.hero-meta { margin-top:auto; padding-top:7vh; display:flex; gap:45px; color:#686b6e; font-size:12px; }
+.hero-meta span:before { content:""; display:inline-block; width:6px; height:6px; background:#343638; margin-right:10px; border-radius:50%; }
+.placeholder-grid { padding:0 7vw 120px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.unit-card { border:1px solid #d5d6d3; background:#fff; }
+.unit-visual { height:310px; background:#e7e7e5; position:relative; overflow:hidden; display:grid; place-items:center; }
+.unit-visual>span { position:absolute; right:18px; top:12px; font-family:var(--font-serif); font-size:32px; color:#8b8d8c; }
+.unit-visual small { position:absolute; inset:auto 16px 14px; text-align:center; text-transform:uppercase; letter-spacing:.08em; font-size:9px; color:#686b6e; }
+.floorplan { width:62%; height:57%; border:2px solid #8d908e; position:relative; transform:rotate(-4deg); transition:.5s ease; }
+.unit-card:hover .floorplan { transform:rotate(0) scale(1.04); }
+.floorplan i { position:absolute; border:1px solid #a3a5a3; }
+.floorplan i:nth-child(1){left:0;top:45%;width:100%;height:1px}.floorplan i:nth-child(2){left:52%;top:0;width:1px;height:45%}.floorplan i:nth-child(3){right:0;bottom:0;width:35%;height:55%}
+.unit-body { padding:25px; }
+.unit-body>p { margin:0 0 8px; font-size:10px; text-transform:uppercase; letter-spacing:.14em; color:#8a8c8b; }
+.unit-body h3,.owner-card h3,.tour-intro h3 { font-family:var(--font-serif); font-weight:500; font-size:30px; margin:0; }
+.unit-body dl { display:grid; grid-template-columns:repeat(3,1fr); margin:25px 0 0; padding-top:18px; border-top:1px solid #e0e0de; }
+.unit-body dl div { display:flex; flex-direction:column; gap:5px; }
+.unit-body dt { font-size:10px; color:#898b8a; text-transform:uppercase; }
+.unit-body dd { margin:0; font-size:11px; }
+.tour-section { background:#343638; color:#fff; padding:110px 7vw 120px; }
+.tour-heading { display:grid; grid-template-columns:1.1fr .9fr; align-items:end; margin-bottom:55px; }
+.tour-heading .eyebrow { grid-column:1/-1; }
+.tour-heading p { max-width:470px; color:#bfc1bf; line-height:1.7; justify-self:end; }
+.tour-shell { height:min(74vh,760px); min-height:560px; position:relative; overflow:hidden; border:1px solid #656866; background:#efefec; color:#343638; }
+.tour-shell canvas { touch-action:none; }
+.tour-intro { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px; background:radial-gradient(circle at 50% 40%,#fff,#e7e7e5); }
+.tour-intro:before { content:""; width:170px; height:120px; border:1px solid #929492; position:absolute; transform:rotate(45deg); opacity:.2; }
+.tour-intro>* { position:relative; z-index:1; }
+.tour-intro h3 { font-size:clamp(34px,5vw,62px); margin:20px 0; }
+.tour-intro p { max-width:570px; line-height:1.7; color:#686b6e; }
+.tour-loading { height:100%; display:grid; place-items:center; color:#686b6e; }
+.tour-toolbar { position:absolute; left:18px; top:18px; display:flex; gap:8px; z-index:5; }
+.tour-toolbar button,.tour-views button { border:1px solid rgba(52,54,56,.25); background:rgba(255,255,255,.88); color:#343638; backdrop-filter:blur(10px); padding:10px 13px; font:600 11px var(--font-sans); cursor:pointer; }
+.tour-views { position:absolute; right:18px; top:18px; display:flex; gap:6px; z-index:5; flex-wrap:wrap; justify-content:flex-end; max-width:56%; }
+.tour-views button.active { background:#343638; color:#fff; }
+.tour-note { position:absolute; z-index:4; left:0; right:0; bottom:0; padding:11px; margin:0; background:rgba(52,54,56,.86); color:#fff; font-size:10px; text-align:center; letter-spacing:.04em; }
+.tour-hotspot { white-space:nowrap; background:rgba(255,255,255,.9); padding:6px 9px; border:1px solid #c6c7c5; font:600 10px var(--font-sans); color:#343638; }
+.mobile-pad { position:absolute; z-index:6; left:22px; bottom:50px; display:grid; grid-template-columns:repeat(4,44px); gap:5px; }
+.mobile-pad button { height:42px; border:1px solid rgba(255,255,255,.25); background:rgba(52,54,56,.8); color:#fff; font-size:18px; touch-action:none; }
+.owners-location { padding:120px 7vw; background:#f7f7f4; display:grid; grid-template-columns:1.15fr .85fr; gap:8vw; align-items:center; }
+.owners-location>div:first-child>p { color:#686b6e; line-height:1.7; max-width:580px; }
+.owner-card { border-left:1px solid #bfc0be; padding:25px 0 25px 55px; }
+.owner-card>span { font-size:10px; text-transform:uppercase; letter-spacing:.16em; color:#777a78; }
+.owner-card h3 { font-size:clamp(35px,4vw,56px); margin:20px 0; }
+.owner-card p { color:#686b6e; line-height:1.6; margin-bottom:25px; }
+.button.disabled { background:#8c8f8d; cursor:not-allowed; pointer-events:none; }
+@keyframes hero-pulse { 50%{transform:scale(1.05) translate(-2vw,2vh)} }
+@keyframes blueprint-drift { 50%{transform:translate(12px,-8px)} }
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@media (max-width:900px){
+  .placeholder-grid{grid-template-columns:1fr}.unit-card{display:grid;grid-template-columns:1fr 1fr}.unit-visual{height:340px}.tour-heading,.owners-location{grid-template-columns:1fr}.tour-heading p{justify-self:start}.owner-card{border-left:0;border-top:1px solid #bfc0be;padding:40px 0 0}.tour-views{top:auto;bottom:48px;left:18px;right:18px;max-width:none;justify-content:flex-end}.hero-meta{flex-wrap:wrap;gap:15px 30px}
+}
+@media (max-width:600px){
+  .new-hero{min-height:calc(100svh - 72px);padding-top:8vh}.new-hero h1{font-size:60px}.new-hero>p{font-size:15px}.hero-meta{padding-top:5vh;flex-direction:column}.placeholder-grid{padding-bottom:80px}.unit-card{display:block}.unit-visual{height:280px}.tour-section{padding:80px 5vw}.tour-shell{min-height:590px;height:72svh}.tour-toolbar{left:10px;top:10px}.tour-views{left:10px;right:10px;bottom:46px;justify-content:flex-start}.tour-views button{padding:7px 9px}.mobile-pad{left:10px;bottom:112px}.owners-location{padding:85px 7vw}.contact{padding:75px 7vw}
+}
