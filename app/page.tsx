@@ -2,6 +2,7 @@ import VirtualTour from "./VirtualTour";
 import ScrollReveal from "./ScrollReveal";
 import { getWhatsappLink, siteConfig } from "./siteConfig";
 import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
+import Image from "next/image";
 
 function ContactLink({ className = "button" }: { className?: string }) {
   const link = getWhatsappLink();
@@ -31,19 +32,19 @@ export default function Home() {
 
       <section className="property-gallery" aria-label="Galeria das Kitnets Beta">
         <figure className="gallery-item gallery-wide" data-reveal="scale">
-          <img src="/media/corredor-sem-saco.png" alt="Corredor externo das Kitnets Beta com portas e janelas" loading="lazy" decoding="async" />
+          <Image src="/media/corredor-sem-saco.png" alt="Corredor externo das Kitnets Beta com portas e janelas" fill sizes="(max-width: 900px) 90vw, 58vw" />
           <figcaption><span>01</span> Corredor de acesso</figcaption>
         </figure>
         <figure className="gallery-item gallery-portrait" data-reveal="scale" data-delay="1">
-          <img src="/media/kitnet-cozinha-sem-saco.png" alt="Interior de uma kitnet com pia e porta de entrada" loading="lazy" decoding="async" />
+          <Image src="/media/kitnet-cozinha-sem-saco.png" alt="Interior de uma kitnet com pia e porta de entrada" fill sizes="(max-width: 900px) 90vw, 40vw" />
           <figcaption><span>02</span> Espaço interno</figcaption>
         </figure>
         <figure className="gallery-item gallery-portrait" data-reveal="scale">
-          <img src="/media/kitnet-entrada.jpeg" alt="Interior de uma kitnet visto em direção ao acesso externo" loading="lazy" decoding="async" />
+          <Image src="/media/kitnet-entrada.jpeg" alt="Interior de uma kitnet visto em direção ao acesso externo" fill sizes="(max-width: 900px) 90vw, 58vw" />
           <figcaption><span>03</span> Entrada e cozinha</figcaption>
         </figure>
         <figure className="gallery-item gallery-wide" data-reveal="scale" data-delay="1">
-          <img src="/media/fachada-projeto-hd.png" alt="Vista do projeto da fachada das Kitnets Beta" loading="lazy" decoding="async" />
+          <Image src="/media/fachada-projeto-hd.png" alt="Vista do projeto da fachada das Kitnets Beta" fill sizes="(max-width: 900px) 90vw, 40vw" />
           <figcaption><span>04</span> Vista do projeto</figcaption>
         </figure>
       </section>
