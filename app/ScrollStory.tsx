@@ -29,14 +29,6 @@ const stories = [
     text: "Pia, circulação e entrada reunidas em uma planta prática para quem procura independência sem excesso.",
     position: "center 44%",
   },
-  {
-    image: "/media/corredor-sem-saco.png",
-    alt: "Corredor externo de acesso às Kitnets Beta",
-    eyebrow: "Jardim Conceição",
-    title: "Chegar também faz parte da experiência.",
-    text: "Acesso direto às unidades em São Roque, com uma apresentação clara do espaço antes mesmo da visita.",
-    position: "center",
-  },
 ] as const;
 
 export default function ScrollStory() {
@@ -63,7 +55,7 @@ export default function ScrollStory() {
               <Image src={story.image} alt={story.alt} fill sizes="100vw" style={{ objectPosition: story.position }} />
             </div>
             <div>
-              <span>{String(index + 1).padStart(2, "0")} — {story.eyebrow}</span>
+              <span>{String(index + 1).padStart(2, "0")} / {story.eyebrow}</span>
               <h3>{story.title}</h3>
               <p>{story.text}</p>
             </div>
@@ -102,7 +94,7 @@ export default function ScrollStory() {
         <div className="story-copy-stage">
           {stories.map((story, index) => (
             <article className={`story-copy ${active === index ? "is-active" : ""}`} key={story.title}>
-              <span className="story-eyebrow">{String(index + 1).padStart(2, "0")} — {story.eyebrow}</span>
+              <span className="story-eyebrow">{String(index + 1).padStart(2, "0")} / {story.eyebrow}</span>
               <h2>{story.title}</h2>
               <p>{story.text}</p>
             </article>
@@ -114,7 +106,6 @@ export default function ScrollStory() {
           <i><motion.b style={{ scaleX: scrollYProgress }} /></i>
           <span>{String(stories.length).padStart(2, "0")}</span>
         </div>
-        <span className="story-scroll-label">Continue rolando</span>
       </div>
     </section>
   );

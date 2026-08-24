@@ -7,19 +7,19 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Início", href: "#inicio" },
-  { name: "Unidades", href: "#unidades" },
-  { name: "Tour 3D", href: "#inicio" },
+  { name: "Ambientes", href: "#unidades" },
   { name: "Localização", href: "#localizacao" },
+  { name: "Contato", href: "#contato" },
 ];
 
 const containerVariants: Variants = {
   expanded: {
     width: "auto",
-    transition: { type: "spring", damping: 22, stiffness: 280, staggerChildren: 0.06, delayChildren: 0.12 },
+    transition: { type: "spring", damping: 24, stiffness: 340, staggerChildren: 0.035, delayChildren: 0.05 },
   },
   collapsed: {
     width: "3rem",
-    transition: { type: "spring", damping: 22, stiffness: 300, when: "afterChildren", staggerChildren: 0.04, staggerDirection: -1 },
+    transition: { type: "spring", damping: 24, stiffness: 360, when: "afterChildren", staggerChildren: 0.025, staggerDirection: -1 },
   },
 };
 

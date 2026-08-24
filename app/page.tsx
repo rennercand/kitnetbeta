@@ -1,4 +1,4 @@
-import VirtualTour from "./VirtualTour";
+import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import { getWhatsappLink, siteConfig } from "./siteConfig";
 import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
@@ -15,25 +15,42 @@ export default function Home() {
       <ScrollReveal />
       <AnimatedNavFramer />
 
-      <section className="new-hero hero-tour-card" id="inicio">
-        <div className="blueprint" aria-hidden="true"><i/><i/><i/><i/></div>
-        <VirtualTour mode="hero" />
-        <div className="hero-center">
-          <div className="hero-kicker">Explore por dentro</div>
-          <h1>Kitnets<br/><em>do seu jeito.</em></h1>
+      <section className="hero-minimal" id="inicio">
+        <Image
+          className="hero-minimal-image"
+          src="/media/loft-decorado.jpeg"
+          alt="Loft decorado das Kitnets Beta"
+          fill
+          priority
+          quality={88}
+          sizes="100vw"
+        />
+        <div className="hero-minimal-shade" aria-hidden="true" />
+        <div className="hero-minimal-copy">
+          <p>Jardim Conceição · São Roque</p>
+          <h1>Kitnets<br/><span>do seu jeito.</span></h1>
         </div>
-        <a className="scroll-cue" href="#unidades" aria-label="Continuar para as unidades"><span>Role para explorar</span><i/></a>
+        <a className="hero-scroll" href="#unidades" aria-label="Conhecer os ambientes">
+          <span>Conheça os ambientes</span><i />
+        </a>
       </section>
 
       <ScrollStory />
 
-      <section className="owners-location" id="localizacao">
-        <div data-reveal="left"><span className="eyebrow">Onde estamos</span><h2>Jardim Conceição,<br/>São Roque – SP.</h2><p>O endereço exato será informado diretamente aos interessados durante o agendamento.</p></div>
-        <div className="owner-card" data-reveal="right"><span>Atendimento</span><h3>Roni Fagundes<br/>& Barbara Aline</h3><p>Contato direto, sem informações inventadas e com visita combinada.</p><ContactLink /></div>
+      <section className="location-minimal" id="localizacao">
+        <span className="section-number" data-reveal="up">04</span>
+        <div data-reveal="up">
+          <span className="eyebrow">Localização</span>
+          <h2>Jardim Conceição,<br/>São Roque.</h2>
+        </div>
+        <p data-reveal="up" data-delay="1">Um endereço tranquilo e prático. A localização completa é informada durante o agendamento da visita.</p>
       </section>
 
-      <section className="contact" id="contato"><div data-reveal="up"><span className="eyebrow light">Próximo passo</span><h2>Quer conhecer<br/>pessoalmente?</h2></div><div className="contact-action" data-reveal="up" data-delay="1"><p>Assim que o telefone for cadastrado, o botão abrirá uma conversa direta no WhatsApp.</p><ContactLink className="button button-light" /></div></section>
-      <footer data-reveal="up"><a className="brand" href="#inicio"><span className="brand-mark">KB</span><span>{siteConfig.name}</span></a><p>{siteConfig.location}</p><a href="#inicio">Voltar ao topo ↑</a></footer>
+      <section className="contact-minimal" id="contato">
+        <div data-reveal="up"><span className="eyebrow light">Visitas</span><h2>Venha conhecer.</h2></div>
+        <div className="contact-minimal-action" data-reveal="up" data-delay="1"><p>Consulte a disponibilidade e combine uma visita.</p><ContactLink className="button button-light" /></div>
+      </section>
+      <footer><a className="brand" href="#inicio"><span className="brand-mark">KB</span><span>{siteConfig.name}</span></a><p>{siteConfig.location}</p><a href="#inicio">Topo</a></footer>
     </main>
   );
 }
