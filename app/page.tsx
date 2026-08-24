@@ -2,7 +2,7 @@ import VirtualTour from "./VirtualTour";
 import ScrollReveal from "./ScrollReveal";
 import { getWhatsappLink, siteConfig } from "./siteConfig";
 import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
-import Image from "next/image";
+import ScrollStory from "./ScrollStory";
 
 function ContactLink({ className = "button" }: { className?: string }) {
   const link = getWhatsappLink();
@@ -25,29 +25,7 @@ export default function Home() {
         <a className="scroll-cue" href="#unidades" aria-label="Continuar para as unidades"><span>Role para explorar</span><i/></a>
       </section>
 
-      <section className="intro" id="unidades">
-        <div data-reveal="up"><span className="eyebrow">Espaços reais</span><h2>Conheça cada<br/>detalhe.</h2></div>
-        <p data-reveal="up" data-delay="1">Imagens reais das kitnets e das áreas de circulação no Jardim Conceição, em São Roque.</p>
-      </section>
-
-      <section className="property-gallery" aria-label="Galeria das Kitnets Beta">
-        <figure className="gallery-item gallery-wide" data-reveal="scale">
-          <Image src="/media/corredor-sem-saco.png" alt="Corredor externo das Kitnets Beta com portas e janelas" fill sizes="(max-width: 900px) 90vw, 58vw" />
-          <figcaption><span>01</span> Corredor de acesso</figcaption>
-        </figure>
-        <figure className="gallery-item gallery-portrait" data-reveal="scale" data-delay="1">
-          <Image src="/media/kitnet-cozinha-sem-saco.png" alt="Interior de uma kitnet com pia e porta de entrada" fill sizes="(max-width: 900px) 90vw, 40vw" />
-          <figcaption><span>02</span> Espaço interno</figcaption>
-        </figure>
-        <figure className="gallery-item gallery-portrait" data-reveal="scale">
-          <Image src="/media/kitnet-entrada.jpeg" alt="Interior de uma kitnet visto em direção ao acesso externo" fill sizes="(max-width: 900px) 90vw, 58vw" />
-          <figcaption><span>03</span> Entrada e cozinha</figcaption>
-        </figure>
-        <figure className="gallery-item gallery-wide" data-reveal="scale" data-delay="1">
-          <Image src="/media/fachada-projeto-hd.png" alt="Vista do projeto da fachada das Kitnets Beta" fill sizes="(max-width: 900px) 90vw, 40vw" />
-          <figcaption><span>04</span> Vista do projeto</figcaption>
-        </figure>
-      </section>
+      <ScrollStory />
 
       <section className="owners-location" id="localizacao">
         <div data-reveal="left"><span className="eyebrow">Onde estamos</span><h2>Jardim Conceição,<br/>São Roque – SP.</h2><p>O endereço exato será informado diretamente aos interessados durante o agendamento.</p></div>
