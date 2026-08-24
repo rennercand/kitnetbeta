@@ -43,7 +43,7 @@ export default function ScrollStory() {
             style={{ objectPosition: story.position }}
           />
           <div className="story-panel-shade" aria-hidden="true" />
-          <div className="story-panel-copy">
+          <div className="story-panel-copy" data-reveal="up">
             <span>{String(index + 1).padStart(2, "0")} / {story.eyebrow}</span>
             <h3>{story.title}</h3>
             <p>{story.text}</p>

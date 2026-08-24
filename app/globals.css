@@ -57,6 +57,7 @@ h2 { margin: 14px 0 0; font-size: clamp(42px, 6vw, 82px); line-height: .96; }
 .story-panel-copy span { display: inline-block; margin-bottom: 18px; color: rgba(255,255,255,.66); font-size: 9px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
 .story-panel-copy h3 { max-width: 700px; margin: 0; font-size: clamp(42px, 6vw, 82px); line-height: .92; }
 .story-panel-copy p { max-width: 520px; margin: 22px 0 0; color: rgba(255,255,255,.76); font-size: clamp(14px, 1.25vw, 17px); line-height: 1.6; }
+.reveal-ready .story-panel[data-reveal] { opacity: 1; transform: none; }
 
 .location-minimal { width: min(var(--content), calc(100% - (var(--gutter) * 2))); margin-inline: auto; padding: 120px 0; display: grid; grid-template-columns: 48px 1fr .75fr; gap: clamp(30px,5vw,76px); align-items: end; border-bottom: 1px solid var(--line); }
 .section-number { align-self: start; color: #9b9d9b; font-size: 10px; letter-spacing: .12em; }
