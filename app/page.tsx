@@ -18,8 +18,8 @@ export default function Home() {
       <section className="hero-minimal" id="inicio">
         <Image
           className="hero-minimal-image"
-          src="/media/loft-decorado.jpeg"
-          alt="Loft decorado das Kitnets Beta"
+          src="/media/fachada-projeto-hd.png"
+          alt="Fachada das Kitnets Beta"
           fill
           priority
           quality={88}
